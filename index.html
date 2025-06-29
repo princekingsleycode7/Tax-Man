@@ -936,12 +936,15 @@
             return;
           }
           
-          // Collect allowances
-          const allowances = [];
-          document.querySelectorAll('#allowanceContainer input').forEach(input => {
-            const value = parseFloat(input.value) || 0;
-            allowances.push(value);
-          });
+          // Use payPerAnnual directly if provided, otherwise calculate from monthly components
+let annualGross;
+if (payPerAnnual > 0) {
+  annualGross = payPerAnnual;
+} else {
+  const totalMonthlyAllowances = allowances.reduce((sum, allowance) => sum + allowance, 0);
+  const totalMonthly = monthlySalary + totalMonthlyAllowances;
+  annualGross = totalMonthly * 12;
+    }
           
           // Calculate annual gross from monthly components
           const totalMonthlyAllowances = allowances.reduce((sum, allowance) => sum + allowance, 0);
