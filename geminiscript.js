@@ -119,8 +119,8 @@ function calculateTax(payPerAnnual, annualGross, isDoctor, monthlyPay, grossMont
                     <div class="summary-label">Monthly Tax</div>
                 </div>
                 <div class="summary-item">
-                    <div class="summary-value">${formatCurrency(netMonthly)}</div>
-                    <div class="summary-label">Net Monthly</div>
+                    <div class="summary-value">${formatCurrency(monthlyNHF)}</div>
+                    <div class="summary-label">Monthly NHF</div>
                 </div>
             </div>
 
