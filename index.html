@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Income Tax Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css"/>
+   
+</head>
+<body>
+    <div class="main-container">
+        <div class="hero-section">
+            <h1 class="hero-title">Personal Income Tax Calculator</h1>
+            <p class="hero-subtitle">
+                Calculate PAYE tax with precision using current or proposed Nigerian tax laws
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <div class="mode-selector">
+                <button class="mode-btn active" onclick="setMode('current')">
+                    <span>Current Law</span>
+                </button>
+                <button class="mode-btn" onclick="setMode('proposed')">
+                    <span>Proposed Law</span>
+                </button>
+            </div>
+
+            <ul class="nav nav-tabs" id="inputTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="excel-tab" data-bs-toggle="tab" data-bs-target="#excel" type="button" role="tab">
+                        📊 Upload Excel
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="annual-tab" data-bs-toggle="tab" data-bs-target="#annual" type="button" role="tab">
+                        📅 Annual Input
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button" role="tab">
+                        💰 Monthly + Allowances
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="tabContent">
+                <!-- Excel Upload Tab -->
+                <div class="tab-pane fade show active" id="excel" role="tabpanel">
+                    <div class="input-group">
+                        <label class="form-label">Upload Excel File</label>
+                        <input type="file" id="excelFile" accept=".xlsx, .xls" class="form-control">
+                        <button class="btn btn-primary" onclick="handleFileUpload()">
+                            <span class="btn-text">Upload & Calculate</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Annual Input Tab -->
+                <div class="tab-pane fade" id="annual" role="tabpanel">
+                    <div class="input-group">
+                        <!-- PATCH 2: Replace name field with Pay per Annual and add doctor selection -->
+                        <div>
+                            <label for="annualPayPerAnnual" class="form-label">Pay per Annual (₦)</label>
+                            <input type="number" id="annualPayPerAnnual" class="form-control" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="annualGross" class="form-label">Annual Gross Salary (₦)</label>
+                            <input type="number" id="annualGross" class="form-control" placeholder="0">
+                        </div>
+                        <div class="doctor-selection">
+                            <label class="form-label">Are you a doctor?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="annualDoctorYes" name="annualDoctor" value="yes">
+                                    <label for="annualDoctorYes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="annualDoctorNo" name="annualDoctor" value="no" checked>
+                                    <label for="annualDoctorNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="handleAnnualInput()">
+                            <span class="btn-text">Calculate Tax</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Monthly + Allowances Tab -->
+                <div class="tab-pane fade" id="monthly" role="tabpanel">
+                    <div class="input-group">
+                        <!-- PATCH 3: Replace name field with Pay per Annual and add doctor selection -->
+                        <div>
+                            <label for="monthlyPayPerAnnual" class="form-label">Pay per Annual (₦)</label>
+                            <input type="number" id="monthlyPayPerAnnual" class="form-control" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="monthlySalary" class="form-label">Base Monthly Salary (₦)</label>
+                            <input type="number" id="monthlySalary" class="form-control" placeholder="0">
+                        </div>
+                        <div class="doctor-selection">
+                            <label class="form-label">Are you a doctor?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="monthlyDoctorYes" name="monthlyDoctor" value="yes">
+                                    <label for="monthlyDoctorYes">Yes</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="monthlyDoctorNo" name="monthlyDoctor" value="no" checked>
+                                    <label for="monthlyDoctorNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="allowanceContainer"></div>
+                        <button type="button" class="btn btn-secondary" onclick="addAllowanceField()">
+                            + Add Allowance
+                        </button>
+                        <button class="btn btn-primary" onclick="handleMonthlyInput()">
+                            <span class="btn-text">Calculate Tax</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="results" class="results-container"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+   <script src="script.js"></script>
+</body>
+</html>
